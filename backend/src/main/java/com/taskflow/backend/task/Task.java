@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Task {
@@ -11,21 +12,20 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Title must not be blank")
     private String title;
+
     private boolean completed;
 
     public Task() {
     }
 
     public Task(Long id, String title, boolean completed) {
-        this.completed = completed;
-        this.title = title;
         this.id = id;
+        this.title = title;
+        this.completed = completed;
     }
-
-//    public TaskController(TaskService taskService) {
-//        this.taskService = taskService;
-//    }
 
     public Long getId() {
         return id;
@@ -51,4 +51,3 @@ public class Task {
         this.completed = completed;
     }
 }
-
