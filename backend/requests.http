@@ -8,7 +8,7 @@ POST http://localhost:8080/api/tasks
 Content-Type: application/json
 
 {
-  "title": "Learn JPA",
+  "title": "Learn Angular",
   "completed": false
 }
 
