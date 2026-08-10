@@ -23,6 +23,10 @@ public class Task {
         this.id = id;
     }
 
+//    public TaskController(TaskService taskService) {
+//        this.taskService = taskService;
+//    }
+
     public Long getId() {
         return id;
     }

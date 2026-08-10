@@ -10,40 +10,30 @@ import java.util.List;
 public class TaskController {
 
 
-    private final TaskRepository taskRepository;
+    private final TaskService taskService;
 
-    public TaskController(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
     @GetMapping
     public List<Task> getTasks() {
-        return taskRepository.findAll();
+        return taskService.getTasks();
     }
 
     @PostMapping
     public Task createTask(@RequestBody Task task) {
-        return taskRepository.save(task);
+        return taskService.createTask(task);
     }
 
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
-
-        Task task = taskRepository.findById(id).orElse(null);
-
-        if (task == null) {
-            return null;
-        }
-
-        task.setTitle(updatedTask.getTitle());
-        task.setCompleted(updatedTask.isCompleted());
-
-        return taskRepository.save(task);
+        return taskService.updateTask(id, updatedTask);
     }
 
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
-        taskRepository.deleteById(id);
+        taskService.deleteTask(id);
     }
 
 
