@@ -1,11 +1,11 @@
 package com.taskflow.backend.task;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
