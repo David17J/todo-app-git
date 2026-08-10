@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class TaskService {
 
@@ -22,11 +23,9 @@ public class TaskService {
     }
 
     public Task updateTask(Long id, Task updatedTask) {
-        Task task = taskRepository.findById(id).orElse(null);
+    Task task = taskRepository.findById(id)
+            .orElseThrow(() -> new TaskNotFoundException(id));
 
-        if (task == null) {
-            return null;
-        }
 
         task.setTitle(updatedTask.getTitle());
         task.setCompleted(updatedTask.isCompleted());
@@ -35,6 +34,9 @@ public class TaskService {
     }
 
     public void deleteTask(Long id) {
-        taskRepository.deleteById(id);
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+
+        taskRepository.delete(task);
     }
 }
