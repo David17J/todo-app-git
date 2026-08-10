@@ -10,39 +10,42 @@ import java.util.List;
 public class TaskController {
 
 
-    private final List<Task> tasks = new ArrayList<>(List.of(
-            new Task(1L, "Learn Spring Boot", false),
-            new Task(2L, "Learn Git", true),
-            new Task(3L, "Build TaskFlow", false)
-    ));
+    private final TaskRepository taskRepository;
+
+    public TaskController(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     @GetMapping
     public List<Task> getTasks() {
-        return tasks;
+        return taskRepository.findAll();
     }
 
     @PostMapping
     public Task createTask(@RequestBody Task task) {
-        tasks.add(task);
-        return task;
+        return taskRepository.save(task);
     }
 
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
-        for (Task task : tasks) {
-            if (task.getId().equals(id)) {
-                task.setTitle(updatedTask.getTitle());
-                task.setCompleted(updatedTask.isCompleted());
-                return task;
-            }
+
+        Task task = taskRepository.findById(id).orElse(null);
+
+        if (task == null) {
+            return null;
         }
 
-        return null;
+        task.setTitle(updatedTask.getTitle());
+        task.setCompleted(updatedTask.isCompleted());
+
+        return taskRepository.save(task);
     }
 
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
-        tasks.removeIf(task -> task.getId().equals(id));
+        taskRepository.deleteById(id);
     }
+
+
 }
 

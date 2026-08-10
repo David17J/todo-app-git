@@ -1,9 +1,14 @@
+### Get all tasks
+
+GET http://localhost:8080/api/tasks
+
+### Create task
+
 POST http://localhost:8080/api/tasks
 Content-Type: application/json
 
 {
-  "id": 4,
-  "title": "Learn Angular",
+  "title": "Learn JPA",
   "completed": false
 }
 
