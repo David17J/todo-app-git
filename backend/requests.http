@@ -1,0 +1,23 @@
+POST http://localhost:8080/api/tasks
+Content-Type: application/json
+
+{
+  "id": 4,
+  "title": "Learn Angular",
+  "completed": false
+}
+
+### Update task
+
+PUT http://localhost:8080/api/tasks/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "title": "Learn Git deeply",
+  "completed": true
+}
+
+### Delete task
+
+DELETE http://localhost:8080/api/tasks/2
