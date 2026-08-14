@@ -1,5 +1,6 @@
 package com.taskflow.backend.task;
 
+import com.taskflow.backend.person.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, PersonRepository personRepository) {
         this.taskRepository = taskRepository;
     }
 
@@ -27,8 +28,12 @@ public class TaskService {
             .orElseThrow(() -> new TaskNotFoundException(id));
 
 
-        task.setTitle(updatedTask.getTitle());
-        task.setCompleted(updatedTask.isCompleted());
+//        task.setTitle(updatedTask.getTitle());
+//        task.setCompleted(updatedTask.isCompleted());
+//
+//
+//        List<Task> byTitle = taskRepository.findByTitle("");
+
 
         return taskRepository.save(task);
     }
