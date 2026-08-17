@@ -27,13 +27,8 @@ public class TaskService {
     Task task = taskRepository.findById(id)
             .orElseThrow(() -> new TaskNotFoundException(id));
 
-
-//        task.setTitle(updatedTask.getTitle());
-//        task.setCompleted(updatedTask.isCompleted());
-//
-//
-//        List<Task> byTitle = taskRepository.findByTitle("");
-
+        task.setTitle(updatedTask.getTitle());
+        task.setCompleted(updatedTask.isCompleted());
 
         return taskRepository.save(task);
     }

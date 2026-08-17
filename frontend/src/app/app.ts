@@ -42,4 +42,22 @@ export class App implements OnInit {
       );
     });
   }
+
+  toggleTask(task: Task): void {
+    const updatedTask: Task = {
+      ...task,
+      completed: !task.completed
+    };
+
+    this.taskService.updateTask(task.id, updatedTask).subscribe({
+      next: (savedTask) => {
+        this.tasks.update(tasks =>
+          tasks.map(currentTask =>
+            currentTask.id === savedTask.id ? savedTask : currentTask
+          )
+        );
+      },
+      error: (err) => console.error('Toggle failed:', err)
+    });
+  }
 }
