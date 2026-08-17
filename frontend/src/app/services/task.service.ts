@@ -4,10 +4,9 @@ import { Observable } from 'rxjs';
 import { Task } from '../models/task';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskService {
-
   private apiUrl = 'http://localhost:8080/api/tasks';
 
   constructor(private http: HttpClient) {}
@@ -15,4 +14,12 @@ export class TaskService {
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.apiUrl);
   }
+
+  createTask(task: { title: string; completed: boolean }): Observable<Task> {
+    return this.http.post<Task>(this.apiUrl, task);
+  }
+
+  deleteTask(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.apiUrl}/${id}`);
+}
 }

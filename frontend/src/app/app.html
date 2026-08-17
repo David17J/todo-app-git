@@ -1,9 +1,19 @@
 <h1>TaskFlow</h1>
 
+<input #taskTitle type="text" placeholder="New task">
+
+<button (click)="addTask(taskTitle.value); taskTitle.value = ''">
+  Add Task
+</button>
+
 <ul>
   @for (task of tasks(); track task.id) {
     <li>
       {{ task.title }} - {{ task.completed ? 'Done' : 'Open' }}
+
+      <button (click)="deleteTask(task.id)">
+        Delete
+      </button>
     </li>
   }
 </ul>
