@@ -1,6 +1,6 @@
 #FileLock
-#Mon Aug 17 15:41:37 CEST 2026
-hostName=localhost
-id=1a00ff4d132ab1b67c151d4ad67f325efe1f1f86ec5
+#Tue Aug 18 09:28:33 CEST 2026
+hostName=mac.condevit.local
+id=1a013c58fffaa1a78d25536edbb764f539ca1998673
 method=file
-server=localhost\:52098
+server=192.168.0.116\:49694
