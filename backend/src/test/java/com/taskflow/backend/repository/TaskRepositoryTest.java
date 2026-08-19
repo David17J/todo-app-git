@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
@@ -25,5 +26,23 @@ class TaskRepositoryTest {
 
     // Assert checking result
         assertNotNull(savedTask.getId());
+    }
+
+    @Test
+    void shouldFindTaskById() {
+        // Arrange
+        Task task = new Task();
+        task.setTitle("Find me");
+        task.setCompleted(false);
+
+        Task savedTask = taskRepository.save(task);
+
+        // Act
+        Task foundTask = taskRepository.findById(savedTask.getId())
+                .orElse(null);
+
+        // Assert
+        assertNotNull(foundTask);
+        assertEquals("Find me", foundTask.getTitle());
     }
 }
