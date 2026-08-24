@@ -1,23 +1,54 @@
+<div class="task-container">
+
 <h1>TaskFlow</h1>
+<p class="subtitle">Keep track of your tasks</p>
 
-<input #taskTitle type="text" placeholder="New task">
+<div class="add-task">
+<input
+  #taskTitle
+  type="text"
+  placeholder="New task"
+>
 
-<button (click)="addTask(taskTitle.value); taskTitle.value = ''">
+<button
+  class="add-button"
+  (click)="addTask(taskTitle.value); taskTitle.value = ''">
   Add Task
 </button>
+</div>
 
-<ul>
+<div class="task-list">
+
   @for (task of tasks(); track task.id) {
-    <li>
-      {{ task.title }} - {{ task.completed ? 'Done' : 'Open' }}
+    <div class="task">
+      <span>
+        {{ task.title }}
+      </span>
 
-      <button (click)="deleteTask(task.id)">
+      <span
+        class="status"
+        [class.done]="task.completed"
+        [class.open]="!task.completed"
+      >
+        {{ task.completed ? 'Done' : 'Open' }}
+      </span>
+
+      <button
+        class="delete-button"
+        (click)="deleteTask(task.id)">
         Delete
       </button>
 
-      <button (click)="toggleTask(task)">
+      <button
+        class="toggle-button"
+        (click)="toggleTask(task)">
         Toggle
       </button>
-    </li>
+    </div>
+
   }
-</ul>
+
+  </div>
+
+</div>
+

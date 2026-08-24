@@ -1,0 +1,63 @@
+.task-container {
+  width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+}
+
+.add-task {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 15px;
+  margin-bottom: 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.add-button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.toggle-button {
+  background-color: #e5e7eb;
+}
+
+.delete-button {
+  background-color: #ef4444;
+  color: white;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.open {
+  background-color: #fef3c7;
+}
+
+.done {
+  background-color: #dcfce7;
+}
+
