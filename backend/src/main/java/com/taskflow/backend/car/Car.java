@@ -4,29 +4,49 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 public class Car {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Brand must not be blank")
     private String brand;
+
+    @NotBlank(message = "Model must not be blank")
     private String model;
+
+    @Positive(message = "Price must be greater than 0")
     private long price;
 
+
+    // Leerer Konstruktor
     public Car() {
 
     }
 
+
+    // Konstruktor mit Werten
     public Car(String brand, String model, long price) {
-         setBrand(brand);
-        this.model = model;
-        this.price = price;
+
+        setBrand(brand);
+
+        // Alte Variante:
+        // this.model = model;
+        // this.price = price;
+
+        // Neue Variante über Setter:
+        setModel(model);
+        setPrice(price);
     }
 
+
     // Getter & Setter
+
     public Long getId() {
         return id;
     }
@@ -59,8 +79,8 @@ public class Car {
         this.price = price;
     }
 
-    public void setCar(Car car) {
-    }
+
+    // Alte Methode - wird aktuell nicht benötigt
+    // public void setCar(Car car) {
+    // }
 }
-
-
