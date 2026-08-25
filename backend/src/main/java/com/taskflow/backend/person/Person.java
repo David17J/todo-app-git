@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Person {
@@ -12,7 +13,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "First name must not be blank")
     private String firstName;
+    @NotBlank(message = "Last name must not be blank")
     private String lastName;
 
     //default constructor
