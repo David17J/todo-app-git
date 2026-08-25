@@ -1,3 +1,5 @@
 .idea
 .DS_Store
+backend/data/*.lock.db
+data/*.lock.db
 
