@@ -1,7 +1,6 @@
 package com.taskflow.backend.car;
 
 // import com.taskflow.backend.task.TaskNotFoundException;
-import com.taskflow.backend.task.TaskNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +9,8 @@ import java.util.Optional;
 @Service
 public class CarService {
 
-    // 1. Ich brauche ein CarRepository
+    // Nur ein Repository wird benötigt
+    // public final CarRepository CarRepository;
     private final CarRepository carRepository;
 
     /**
@@ -19,7 +19,7 @@ public class CarService {
     public CarService(CarRepository carRepository) {
         // this.CarRepository = carRepository;
         this.carRepository = carRepository;
-  
+    }
 
     public List<Car> getAllCars() {
         return carRepository.findAll();
@@ -41,8 +41,6 @@ public class CarService {
 //            car2.setBrand("Ferrari");
 //        }
 //
-//        Car car2= new Car();
-//        car2.setBrand("Ferrari");
 //        car2.setModel("Roma Spider");
 //        car.setPrice(10000);
 //        car2.setCar(car);
@@ -76,8 +74,12 @@ public class CarService {
     public void deleteCar(Long id) {
 
         Car car = carRepository.findById(id)
-                .orElseThrow(() -> new TaskNotFoundException(id));;
+                .orElseThrow(() -> new CarNotFoundException(id));
 
-        carRepository.deleteById(id);
+        // Falsch:
+        // carRepository.deleteById(car);
+
+        // Richtig:
+        carRepository.delete(car);
     }
 }
