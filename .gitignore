@@ -2,4 +2,5 @@
 .DS_Store
 backend/data/*.lock.db
 data/*.lock.db
+backend/data/taskflow.lock.db
 
