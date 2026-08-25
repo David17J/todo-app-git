@@ -1,5 +1,6 @@
 package com.taskflow.backend.car;
 
+import com.taskflow.backend.task.TaskNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,23 +10,21 @@ import java.util.Optional;
 public class CarService {
 
     // 1. Ich brauche ein CarRepository
-    public final CarRepository CarRepository;
     private final CarRepository carRepository;
 
     /**
      * constructor injection
      */
-    public CarService(CarRepository CarRepository, CarRepository carRepository) { // 2. Spring gibt es mir beim Erstellen
-        this.CarRepository = carRepository; // 3. Ich speichere es
-        this.carRepository = carRepository;
+    public CarService(CarRepository carRepository) { // 2. Spring gibt es mir beim Erstellen
+        this.carRepository = carRepository; // 3. Ich speichere es
     }
 
     public List<Car> getAllCars() {
-        return CarRepository.findAll();
+        return carRepository.findAll();
     }
 
     public void createCar(Car car) {
-        CarRepository.save(car);
+        carRepository.save(car);
 
 //        Car car2= new Car();
 //        car2.setBrand("Ferrari");
@@ -40,25 +39,26 @@ public class CarService {
 //    }
     }
 
-    public Optional<Car> getCarById(Long id) {
-        return CarRepository.findById(id);
+    public Car getCarById(Long id) {
+        return carRepository.findById(id)
+                .orElseThrow(() -> new CarNotFoundException(id));
     }
 
     public Car updateCar (Long id, Car updatedCar) {
     Car existingCar = carRepository.findById(id)
-        .orElseThrow();
+        .orElseThrow(() -> new CarNotFoundException(id));
 
         existingCar.setBrand(updatedCar.getBrand());
         existingCar.setModel(updatedCar.getModel());
         existingCar.setPrice(updatedCar.getPrice());
 
-        return CarRepository.save(existingCar);
+        return carRepository.save(existingCar);
     }
 
     public void deleteCar (Long id) {
         Car car = carRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new TaskNotFoundException(id));;
 
-        CarRepository.deleteById(id);
+        carRepository.deleteById(id);
     }
 }

@@ -30,7 +30,7 @@ public class CarController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Car> getCarById(@PathVariable Long id) {
+    public Car getCarById(@PathVariable Long id) {
         return carService.getCarById(id);
     }
 
