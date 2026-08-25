@@ -1,5 +1,6 @@
 package com.taskflow.backend.car;
 
+// import com.taskflow.backend.task.TaskNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,57 +9,77 @@ import java.util.Optional;
 @Service
 public class CarService {
 
-    // 1. Ich brauche ein CarRepository
-    public final CarRepository CarRepository;
+    // Nur ein Repository wird benötigt
+    // public final CarRepository CarRepository;
     private final CarRepository carRepository;
 
     /**
      * constructor injection
      */
-    public CarService(CarRepository CarRepository, CarRepository carRepository) { // 2. Spring gibt es mir beim Erstellen
-        this.CarRepository = carRepository; // 3. Ich speichere es
+    public CarService(CarRepository carRepository) {
+        // this.CarRepository = carRepository;
         this.carRepository = carRepository;
     }
 
     public List<Car> getAllCars() {
-        return CarRepository.findAll();
+        return carRepository.findAll();
     }
 
     public void createCar(Car car) {
-        CarRepository.save(car);
+        carRepository.save(car);
 
-//        Car car2= new Car();
-//        car2.setBrand("Ferrari");
+        // Übungscode - momentan nicht für createCar benötigt
+
+//        Car car2 = null;
+//        Optional<Car> car3 = Optional.ofNullable(car2);
+//
+//        car3.ifPresent(c -> {
+//            car2.setBrand("Ferrari");
+//        });
+//
+//        if (car2 != null) {
+//            car2.setBrand("Ferrari");
+//        }
+//
 //        car2.setModel("Roma Spider");
 //        car.setPrice(10000);
 //        car2.setCar(car);
-//        CarRepository.save(car); // 4. Jetzt kann ich es benutzen
-
-
-        //    public CarRepository getCarRepository() {
-//        return CarRepository;
-//    }
+//        carRepository.save(car);
     }
 
-    public Optional<Car> getCarById(Long id) {
-        return CarRepository.findById(id);
+    public Car getCarById(Long id) {
+        return carRepository.findById(id)
+                .orElseThrow(() -> new CarNotFoundException(id));
     }
 
-    public Car updateCar (Long id, Car updatedCar) {
-    Car existingCar = carRepository.findById(id)
-        .orElseThrow();
+    public Car updateCar(Long id, Car updatedCar) {
+
+        // Alte Variante auskommentiert:
+//        Optional<Car> byId = carRepository.findById(id);
+//
+//        if (!byId.isPresent()) {
+//            throw new TaskNotFoundException(id);
+//        }
+
+        Car existingCar = carRepository.findById(id)
+                .orElseThrow(() -> new CarNotFoundException(id));
 
         existingCar.setBrand(updatedCar.getBrand());
         existingCar.setModel(updatedCar.getModel());
         existingCar.setPrice(updatedCar.getPrice());
 
-        return CarRepository.save(existingCar);
+        return carRepository.save(existingCar);
     }
 
-    public void deleteCar (Long id) {
-        Car car = carRepository.findById(id)
-                .orElseThrow();
+    public void deleteCar(Long id) {
 
-        CarRepository.deleteById(id);
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new CarNotFoundException(id));
+
+        // Falsch:
+        // carRepository.deleteById(car);
+
+        // Richtig:
+        carRepository.delete(car);
     }
 }
