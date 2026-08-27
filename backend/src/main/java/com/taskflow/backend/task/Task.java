@@ -1,13 +1,15 @@
 package com.taskflow.backend.task;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.taskflow.backend.person.Person;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Task {
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,4 +52,14 @@ public class Task {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
+    // Getter Setter Person
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
 }

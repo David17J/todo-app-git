@@ -41,5 +41,9 @@ public class TaskController {
     }
 
 
+    @PutMapping("/{taskId}/person/{personId}")
+    public Task assignTaskToPerson(@PathVariable Long taskId, @PathVariable Long personId) {
+        return taskService.assignPersonToTask(taskId, personId);
+    }
 }
 
