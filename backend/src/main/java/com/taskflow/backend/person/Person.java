@@ -15,7 +15,6 @@ public class Person {
 
     @NotBlank(message = "First name must not be blank")
     private String firstName;
-
     @NotBlank(message = "Last name must not be blank")
     private String lastName;
 
